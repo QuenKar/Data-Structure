@@ -1,29 +1,43 @@
-#pragma once
-#include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-int partition(int a[], int low, int high)
+int a[100010];
+
+void qsort(int a[], int left, int right)
 {
-	int i = low, j = high;
-	int x = a[low];
-	while (i < j)
-	{
-		while (i < j && a[j] <= x) --j;
-		a[i] = a[j];
-		while (i < j && a[i] >= x)++i;
-		a[j] = a[i];
-	}
-	swap(x, a[i]);
-	return i;
+    int mid = a[(left + right) / 2];
+    int i = left, j = right;
+    do
+    {
+        while (a[i] < mid)
+            i++;
+        while (a[j] > mid)
+            j--;
+        if (i <= j)
+        {
+            swap(a[i], a[j]);
+            i++;
+            j--;
+        }
+    } while (i <= j);
+    if (left < i)
+        qsort(a, left, j);
+    if (i < right)
+        qsort(a, i, right);
 }
 
-void QSort(int arr[], int l, int r) {
-	if (l < r)
-	{
-		int pivot = partition(arr, l, r);
-		if (l < pivot - 1)
-			QSort(arr, l, pivot - 1);
-		if (pivot + 1 < r)
-			QSort(arr, pivot + 1, r);
-	}
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    qsort(a, 0, n - 1);
+    for (int i = 0; i < n; i++)
+    {
+        if (i != 0)
+            cout << ' ';
+        cout << a[i];
+    }
+    return 0;
 }
