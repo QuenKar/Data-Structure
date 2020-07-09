@@ -20,7 +20,7 @@ void qsort(int a[], int left, int right)
             j--;
         }
     } while (i <= j);
-    if (left < i)
+    if (left < j)
         qsort(a, left, j);
     if (i < right)
         qsort(a, i, right);
